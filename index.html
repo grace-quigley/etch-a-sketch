@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+    <head></head>
+    <title> </title>
+
+    <style>
+
+        .rows {
+            border: 1px solid black;
+        }
+
+        .cols {
+            border: 1px solid black;
+           
+        }
+
+        #container {
+            display:grid;
+            grid-gap:5px;
+            grid-template-rows: repeat(16,1fr);
+            grid-template-columns: repeat(16,1fr);
+            border: 1px solid black;
+        }
+    </style>
+    <body>
+
+        <div id="container"></div>
+        
+
+
+        <script>
+            const container = document.getElementById("container");
+            
+            function makeGrid() {
+                makeRows(16);
+                makeCols(16);
+            };
+
+            function makeRows(rowNum){
+                let i = 0;
+                
+                for(i=0; i<rowNum; i++){
+                    let row = document.createElement("div");
+                    row.setAttribute("class","rows");
+                    container.appendChild(row);
+                };
+            };
+
+            function makeCols(colNum){
+                let i = 0;
+                
+                for(i=0; i<colNum; i++){
+                    let col = document.createElement("div");
+                    row.setAttribute("class","cols");
+                    container.appendChild(cols);
+                };
+            };
+
+            makeGrid;
+
+
+        </script>
+    </body>
+</html>
