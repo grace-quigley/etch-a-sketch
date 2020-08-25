@@ -1,0 +1,1 @@
+This is a project created while completing the Odin Project which creates an Etch-A-Sketch grid. the user can enter the desired number of squares for rows and columns. Upon mousover, the grid will change color to a randomly chosen RGB value.

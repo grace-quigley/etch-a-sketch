@@ -1,63 +1,108 @@
 <!DOCTYPE html>
 
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+    </head>
     <title> </title>
 
-    <style>
 
-        .rows {
-            border: 1px solid black;
-        }
-
-        .cols {
-            border: 1px solid black;
-           
-        }
-
-        #container {
-            display:grid;
-            grid-gap:5px;
-            grid-template-rows: repeat(16,1fr);
-            grid-template-columns: repeat(16,1fr);
-            border: 1px solid black;
-        }
-    </style>
     <body>
 
-        <div id="container"></div>
-        
+        <div>
+            <h1 id="heading">Etch-A-Sketch</h1>
+        </div>
+        <div id="input-container">
+        <label>Rows:</label>
+        <input id="rowInput" type="text"></input>
 
+        <label >Columns:</label>
+        <input id="colInput" type="text"></input>
+
+        <button id="submit">Submit</button>
+        </div>
+
+        <!-- grid area -->
+        <div id="sketchArea" class="sketchArea"></div>
 
         <script>
-            const container = document.getElementById("container");
+            let sketchArea = document.getElementById("sketchArea");
+
+            // set number of rows
+            function setRows(rows){
+                sketchArea.style.gridTemplateRows = "repeat("+rows+",auto)";
+            }
+            // set number of columns
+            function setCols(cols){
+                sketchArea.style.gridTemplateColumns = "repeat("+cols+",auto)";
+            }
+            // create grid
+            function makeGrid(num){
+                let i = 0; 
+                total = num*num;
+                for(i=0; i<total; i++){
+                    let square = document.createElement('div');
+                    square.setAttribute("class","square");
+                    sketchArea.appendChild(square);
+                }
+
+            }
+
+            // Default grid upon load 16x16
+            setRows(16);
+            setCols(16);
+            makeGrid(16);
+
+            //returns a random value between 0-255
+            function random(){
+                const random = Math.floor(Math.random()*255);
+                return random;
+            }
+            // returns a random RGB value in the form rgb(r,g,b)
+            function randomRGB(){
+                const r = random();
+                const g = random();
+                const b = random();
+                console.log(r,g,b);
+                const rgb = "rgb("+r+","+g+","+b+")";
+                return rgb;
+            }
+
             
-            function makeGrid() {
-                makeRows(16);
-                makeCols(16);
-            };
+            // When mouse hovers over square, changes the color of the square.
+            let squares = document.querySelectorAll(".square");
+                squares.forEach(square=> {
+                    square.addEventListener('mouseover',function(e){
+                        square.style.backgroundColor = randomRGB();
+                    });
+                });
 
-            function makeRows(rowNum){
-                let i = 0;
-                
-                for(i=0; i<rowNum; i++){
-                    let row = document.createElement("div");
-                    row.setAttribute("class","rows");
-                    container.appendChild(row);
-                };
-            };
 
-            function makeCols(colNum){
-                let i = 0;
-                
-                for(i=0; i<colNum; i++){
-                    let col = document.createElement("div");
-                    row.setAttribute("class","cols");
-                    container.appendChild(cols);
-                };
-            };
+            let submit = document.getElementById("submit");
+            // when user clicks submit, generates desired grid
+            submit.addEventListener('click', function(e){  
+                // clears grid and previously appended squares
+                document.getElementById("sketchArea").innerHTML = "";
+                //gets user input for rows and columns
+                let rowInput = document.getElementById("rowInput").value;
+                console.log(rowInput);
+                let colInput = document.getElementById("colInput").value;
+                console.log(colInput);
+                //reset rows, columns, and create grid
+                setRows(rowInput);
+                setCols(colInput);
+                makeGrid(colInput);
+                // When mouse hovers over square, changes the color of the square.
+                let squares = document.querySelectorAll(".square");
+                squares.forEach(square=> {
+                    square.addEventListener('mouseover',function(e){
+                        square.style.backgroundColor = randomRGB();
+                    });
+                });
+            });
 
-            makeGrid;
+         
+           
 
 
         </script>
